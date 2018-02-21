@@ -3,7 +3,7 @@
 # Set a proper PATH, 'cos vRA um, doesn't...
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
  
-# Checks to see if Kubernetes Dashboard is required
+# Checks to see if Monitoring is required (currently not implemented, always true/required)
 #if [ $dashboard == true ]; then
         echo "Kubernetes Monitoring is required, installing"
         export KUBECONFIG=/etc/kubernetes/admin.conf
@@ -15,12 +15,11 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 		wget https://raw.githubusercontent.com/kalliz/K8SaaS/master/heapster-rbac.yaml
 		wget https://raw.githubusercontent.com/kalliz/K8SaaS/master/heapster.yaml
 		wget https://raw.githubusercontent.com/kalliz/K8SaaS/master/influxdb.yaml
-		
-		
+
 		#install grafana and influxdb
 		kubectl create -f ~/k8s/heapster/grafana.yaml
 		kubectl create -f ~/k8s/heapster/influxdb.yaml
 
-#else
+#else #this is for when I ad a property so user can select (to be implemented later)
 #        echo "Kubernetes Dashboard is not required"
 #fi

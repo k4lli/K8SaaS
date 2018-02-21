@@ -1,8 +1,8 @@
 #!/bin/bash
 export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
  
-# Checks to see if Kubernetes Dashboard is required
-#if [ $dashboard == true ]; then
+# Checks to see if Monitoring is required (NOT Implemented YET!!! monitoring is always installed)
+#if [ $monitoring == true ]; then # as above. its always true
 export KUBECONFIG=/etc/kubernetes/admin.conf
         
 #get Influx DB IP and adjust in heapster.yaml
@@ -20,9 +20,9 @@ kubectl create -f ~/k8s/heapster/heapster-rbac.yaml
 #expose grafana
 kubectl patch service monitoring-grafana -n kube-system -p '{"spec":{"type":"NodePort"}}'
 
-
 GRAFANAPORT=$(kubectl describe service monitoring-grafana -n kube-system|grep NodePort\: | awk '{print $3}')
 
+# create Grafana IP and port variable for output
 GRAFANA=$(echo $CLUSTERAPIIPPORT | grep -o '.*:')
 GRAFANA="$GRAFANA$GRAFANAPORT"
 
